@@ -6,25 +6,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class HomeScreen extends AppCompatActivity {
-
-    String login;
-    String password;
+public class routeSelection extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_screen);
+        setContentView(R.layout.activity_route_selection);
     }
 
-    public void showRouteScreen(View view) {
+    public void showMapActivity(View view) {
 
         finish();
 
-        finish();
-
-        startActivity(new Intent(getApplicationContext(), routeSelection.class));
-
+        startActivity(new Intent(getApplicationContext(), MapsActivity.class));
 
     }
 }
