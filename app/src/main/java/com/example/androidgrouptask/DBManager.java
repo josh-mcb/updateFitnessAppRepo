@@ -30,12 +30,12 @@ public class DBManager {
         ContentValues contentValue = new ContentValues();
         contentValue.put(SQLiteHelper.NAME, name);
         contentValue.put(SQLiteHelper.AGE, desc);
-        this.database.insert(SQLiteHelper.TABLE_NAME_STUDENT, null, contentValue);
+        this.database.insert(SQLiteHelper.TABLE_NAME_ROUTES, null, contentValue);
     }
 
 
     public Cursor fetch() {
-        Cursor cursor = this.database.query(SQLiteHelper.TABLE_NAME_STUDENT, new String[]{SQLiteHelper._ID, SQLiteHelper.NAME, SQLiteHelper.AGE}, null, null, null, null, null);
+        Cursor cursor = this.database.query(SQLiteHelper.TABLE_NAME_ROUTES, new String[]{SQLiteHelper._ID, SQLiteHelper.NAME, SQLiteHelper.AGE}, null, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
         }
@@ -46,10 +46,10 @@ public class DBManager {
         ContentValues contentValues = new ContentValues();
         contentValues.put(SQLiteHelper.NAME, name);
         contentValues.put(SQLiteHelper.AGE, desc);
-        return this.database.update(SQLiteHelper.TABLE_NAME_STUDENT, contentValues, "_id = " + _id, null);
+        return this.database.update(SQLiteHelper.TABLE_NAME_ROUTES, contentValues, "_id = " + _id, null);
     }
 
     public void delete(long _id) {
-        this.database.delete(SQLiteHelper.TABLE_NAME_STUDENT, "_id=" + _id, null);
+        this.database.delete(SQLiteHelper.TABLE_NAME_ROUTES, "_id=" + _id, null);
     }
 }
