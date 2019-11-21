@@ -19,9 +19,6 @@ public class HomeScreen extends AppCompatActivity {
 
     public void showRouteScreen(View view) {
 
-        finish();
-
-        finish();
 
         startActivity(new Intent(getApplicationContext(), routeSelection.class));
 
