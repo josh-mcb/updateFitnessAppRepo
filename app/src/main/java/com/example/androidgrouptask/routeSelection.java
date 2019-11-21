@@ -16,6 +16,9 @@ public class routeSelection extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_route_selection);
+
         dropdown = findViewById(R.id.spinner);
 
         Spinner dropdown = findViewById(R.id.spinner);
@@ -26,8 +29,7 @@ public class routeSelection extends AppCompatActivity {
 
         dropdown.setAdapter(adapter);
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_route_selection);
+
     }
 
     public void showMapActivity(View view) {
