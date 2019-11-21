@@ -38,27 +38,31 @@
             android:id="@+id/map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="550dp"
+            android:layout_height="match_parent"
             tools:context=".MapsActivity" />
 
     </LinearLayout>
 
     <RelativeLayout
-    android:id="@+id/relativeLayout1"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_weight="1" >
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1">
 
         <Button
             android:id="@+id/endBtn"
             android:layout_width="match_parent"
             android:layout_height="59dp"
+            android:background="@drawable/loginbutton"
+            android:onClick="endRun"
             android:text="@string/end_Button" />
 
         <Button
             android:id="@+id/startBtn"
             android:layout_width="match_parent"
             android:layout_height="59dp"
+            android:background="@drawable/loginbutton"
+            android:onClick="startRun"
             android:text="@string/start_Button" />
 
         <Button
@@ -66,9 +70,9 @@
             android:layout_width="232dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/endBtn"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:foregroundGravity="center_horizontal"
-            android:layout_centerHorizontal="true"
             android:text="@string/scan_Button" />
 
     </RelativeLayout>

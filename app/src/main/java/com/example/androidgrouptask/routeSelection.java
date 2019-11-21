@@ -16,7 +16,6 @@ public class routeSelection extends AppCompatActivity {
 
     public void showMapActivity(View view) {
 
-        finish();
 
         startActivity(new Intent(getApplicationContext(), MapsActivity.class));
 
