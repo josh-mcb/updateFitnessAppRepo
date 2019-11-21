@@ -16,6 +16,7 @@ import android.location.LocationProvider;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -39,6 +40,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     boolean permissionGranted = false;
     LocationManager lm;
     LocationListener locationListener;
+
+    Button startButton;
+    Button endButton;
+    Button scanButton;
 
     private class MyLocationListener implements LocationListener{
 
@@ -95,6 +100,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        startButton = findViewById(R.id.startBtn);
+        endButton = findViewById(R.id.endBtn);
+        scanButton = findViewById(R.id.scanBtn);
+
+        endButton.setVisibility(View.INVISIBLE);
+    }
+
+    public void startRun (View view) {
+        startButton.setVisibility(View.INVISIBLE);
+        endButton.setVisibility(View.VISIBLE);
+    }
+
+    public void endRun (View view) {
+        endButton.setVisibility(View.INVISIBLE);
     }
 
 
