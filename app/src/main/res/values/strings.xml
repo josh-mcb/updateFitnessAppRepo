@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">AndroidGroupTask</string>
+    <string name="login_Button">"Login"</string>
+    <string name="emailTextView">"Email</string>
+    <string name="passwordTextView">"Password</string>
+    <string name="no_account_register">"No Account? Register Here"</string>
+    <string name="confirmPasswordTextView">"Confirm Password"</string>
+    <string name="register_button">"Register"</string>
+    <string name="cancelRegister">"Already have an account? Login Here"</string>
+    <string name="progress">Progress</string>
+    <string name="route">Routes</string>
+    <string name="logout">Logout</string>
+    <string name="title_activity_maps">Map</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
