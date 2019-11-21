@@ -22,7 +22,6 @@ import com.google.firebase.auth.FirebaseAuthException;
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    public static String currentUser;
     private ProgressBar progressBar;
     EditText confirmPassword;
     TextView confirmPasswordLabel;
@@ -121,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
             cancelRegistration.setVisibility(View.INVISIBLE);
         }
 
-
     public void loginUser(View view) {
 
         String email = ((EditText) findViewById(R.id.emailInputTB)).getText().toString();
@@ -143,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
                     Toast.makeText(MainActivity.this, "Login Successful!", Toast.LENGTH_LONG).show();
                     finish();
-                    currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
                     startActivity(new Intent(getApplicationContext(), HomeScreen.class));
                 }
                 else {
@@ -152,10 +149,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    public static String getCurrentUser() {
-        return currentUser;
     }
 }
 
