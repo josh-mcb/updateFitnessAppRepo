@@ -48,4 +48,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.623" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autoText="false"
+        android:background="#FFFFFF"
+        android:text="@string/selectRoute"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        tools:layout_editor_absoluteX="43dp"
+        tools:layout_editor_absoluteY="391dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
