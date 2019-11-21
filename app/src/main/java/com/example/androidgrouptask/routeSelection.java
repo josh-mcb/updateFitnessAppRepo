@@ -19,6 +19,13 @@ public class routeSelection extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route_selection);
 
+        addItemsToSpinner();
+
+    }
+
+
+    public void addItemsToSpinner() {
+
         dropdown = findViewById(R.id.spinner);
 
         Spinner dropdown = findViewById(R.id.spinner);
@@ -28,9 +35,9 @@ public class routeSelection extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, routes);
 
         dropdown.setAdapter(adapter);
-
-
     }
+
+
 
     public void showMapActivity(View view) {
 
