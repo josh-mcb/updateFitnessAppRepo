@@ -27,6 +27,13 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import androidx.annotation.NonNull;
+
 
 import java.io.IOException;
 import java.util.List;
@@ -40,6 +47,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     boolean permissionGranted = false;
     LocationManager lm;
     LocationListener locationListener;
+    DatabaseReference mReff;
 
     Button startButton;
     Button endButton;
@@ -135,6 +143,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        mReff = FirebaseDatabase.getInstance().getReference().child("4km City Run");
+
         // use the LocationManager class to obtain location data
         lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationListener = new MyLocationListener();
@@ -154,12 +164,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
         }
 
-        // Add a marker in start and end marker and move the camera
-        LatLng startPoint = new LatLng(55.020045, -7.308721);
-        LatLng endPoint = new LatLng(55.010499, -7.279066);
-        mMap.addMarker(new MarkerOptions().position(startPoint).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).title("Start Point"));
-        mMap.addMarker(new MarkerOptions().position(endPoint).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).title("End Point"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startPoint, 11.0f));
+
+        mReff.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                double startlatitude = Double.parseDouble(dataSnapshot.child("StartLat").getValue().toString());
+                double startlongitude = Double.parseDouble(dataSnapshot.child("StartLong").getValue().toString());
+                double endlatitude = Double.parseDouble(dataSnapshot.child("EndLat").getValue().toString());
+                double endlongitude = Double.parseDouble(dataSnapshot.child("EndLong").getValue().toString());
+                LatLng startPoint = new LatLng(startlatitude, startlongitude);
+                LatLng endPoint = new LatLng(endlatitude, endlongitude);
+                mMap.addMarker(new MarkerOptions().position(startPoint).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).title("Start Point"));
+                mMap.addMarker(new MarkerOptions().position(endPoint).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).title("End Point"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startPoint, 11.0f));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+            });
 
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
