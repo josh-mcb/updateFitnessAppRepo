@@ -19,4 +19,7 @@
     <string name="start_Button">Start Run</string>
     <string name="scan_Button">Scan for RFID</string>
     <string name="end_Button">End Run</string>
+    <string name="start_point">Start Point</string>
+    <string name="end_point">End Point</string>
+    <string name="your_location">Your location</string>
 </resources>
