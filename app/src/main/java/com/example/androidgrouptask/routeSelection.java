@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 
 public class routeSelection extends AppCompatActivity {
 
@@ -35,19 +36,18 @@ public class routeSelection extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, routes);
 
         dropdown.setAdapter(adapter);
+
     }
-
-    public String returnRoute() {
-        String text = dropdown.getSelectedItem().toString();
-        return text;
-    }
-
-
 
     public void showMapActivity(View view) {
 
+        String route = dropdown.getSelectedItem().toString();
 
-        startActivity(new Intent(getApplicationContext(), MapsActivity.class));
+        Intent intent = new Intent(this, MapsActivity.class);
+
+        intent.putExtra("passedString", route);
+
+        startActivity(intent);
 
     }
 }

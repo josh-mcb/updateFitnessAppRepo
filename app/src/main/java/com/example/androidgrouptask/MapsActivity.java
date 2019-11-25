@@ -52,6 +52,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Button endButton;
     Button scanButton;
 
+    String route = getIntent().getStringExtra("passedString");
+
+
     private class MyLocationListener implements LocationListener{
 
         @Override
@@ -123,15 +126,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
+
+
         mMap = googleMap;
 
-
-        routeSelection route = new routeSelection();
-
-        String routeText = route.returnRoute();
-
         DatabaseReference routeRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference pointRef = routeRef.child(routeText);
+        DatabaseReference pointRef = routeRef.child(route);
 
 
         pointRef.addValueEventListener(new ValueEventListener() {
