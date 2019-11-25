@@ -59,7 +59,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             if (location != null) {
                 Toast.makeText(getBaseContext(),
                         "Current Location: Lat: " + location.getLatitude() +
-                        " Lng: " + location.getLongitude(), Toast.LENGTH_LONG).show();
+                                " Lng: " + location.getLongitude(), Toast.LENGTH_LONG).show();
                 LatLng p = new LatLng(location.getLatitude(),location.getLongitude());
                 Geocoder geoCoder = new Geocoder(getBaseContext(), Locale.getDefault());
                 List<Address> addresses = null;
@@ -79,9 +79,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         .position(p)
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
                         .title(add));
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(p, 12.0f));
-                }
             }
+        }
 
         @Override
         public void onStatusChanged(String s, int i, Bundle bundle) {
@@ -108,20 +107,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        startButton = findViewById(R.id.startBtn);
-        endButton = findViewById(R.id.endBtn);
-        scanButton = findViewById(R.id.scanBtn);
 
-        endButton.setVisibility(View.INVISIBLE);
-    }
-
-    public void startRun (View view) {
-        startButton.setVisibility(View.INVISIBLE);
-        endButton.setVisibility(View.VISIBLE);
-    }
-
-    public void endRun (View view) {
-        endButton.setVisibility(View.INVISIBLE);
     }
 
 
@@ -135,17 +121,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * installed Google Play services and returned to the app.
      */
 
-    public void startTime(View view){
-
-    }
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        DatabaseReference routeRef = FirebaseDatabase.getInstance().getReference().child("4km City Run");
+        DatabaseReference routeRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference pointRef = routeRef.child("4km City Run");
 
 
-        routeRef.addValueEventListener(new ValueEventListener() {
+        pointRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -158,9 +142,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 LatLng startPoint = new LatLng(startLatitude,startLongitude);
                 LatLng endPoint = new LatLng(endLatitude,endLongitude);
 
-                mMap.addMarker(new MarkerOptions().position(startPoint).title("startPoint"));
-                mMap.addMarker(new MarkerOptions().position(endPoint).title("endPoint"));
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startPoint,12F));
+                mMap.addMarker(new MarkerOptions().position(startPoint).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).title("Start Point"));
+                mMap.addMarker(new MarkerOptions().position(endPoint).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).title("End Point"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startPoint,11F));
 
             }
 
@@ -179,7 +163,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, new String[]{
-                android.Manifest.permission.ACCESS_COARSE_LOCATION
+                    android.Manifest.permission.ACCESS_COARSE_LOCATION
             },REQUEST_COARSE_ACCESS);
             return;
         } else {
@@ -204,7 +188,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             add += address.getAddressLine(i) + "\n";
                         LatLng p = new LatLng(address.getLatitude(), address.getLongitude());
                         mMap.addMarker(new MarkerOptions().position(p).title("Touched Location"));
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(p,12.0f));
                     }
                     Toast.makeText(getBaseContext(), add, Toast.LENGTH_SHORT).show();
                 } catch (IOException e) {
@@ -213,7 +196,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        }
+    }
 
     @Override
     public void onRequestPermissionsResult (int requestCode, String[] permissions, int[] grantResults) {
@@ -258,5 +241,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-    }
+}
 
