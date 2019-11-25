@@ -125,8 +125,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+
+        routeSelection route = new routeSelection();
+
+        String routeText = route.returnRoute();
+
         DatabaseReference routeRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference pointRef = routeRef.child("4km City Run");
+        DatabaseReference pointRef = routeRef.child(routeText);
 
 
         pointRef.addValueEventListener(new ValueEventListener() {
