@@ -37,6 +37,11 @@ public class routeSelection extends AppCompatActivity {
         dropdown.setAdapter(adapter);
     }
 
+    public String returnRoute() {
+        String text = dropdown.getSelectedItem().toString();
+        return text;
+    }
+
 
 
     public void showMapActivity(View view) {
