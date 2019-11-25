@@ -109,8 +109,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        startButton = findViewById(R.id.startBtn);
+        endButton = findViewById(R.id.endBtn);
+        scanButton = findViewById(R.id.scanBtn);
 
+        endButton.setVisibility(View.INVISIBLE);
     }
+
+    public void startRun (View view) {
+        startButton.setVisibility(View.INVISIBLE);
+        endButton.setVisibility(View.VISIBLE);
+    }
+
+    public void endRun (View view) {
+        endButton.setVisibility(View.INVISIBLE);
+    }
+
 
 
     /**
