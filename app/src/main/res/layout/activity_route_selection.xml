@@ -87,7 +87,6 @@
         android:layout_width="324dp"
         android:layout_height="64dp"
         android:background="@drawable/loginbutton"
-        android:onClick="showMapActivity"
         android:text="@string/ShowRoute"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

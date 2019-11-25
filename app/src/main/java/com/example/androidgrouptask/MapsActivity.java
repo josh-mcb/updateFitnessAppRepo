@@ -52,7 +52,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Button endButton;
     Button scanButton;
 
-    String route = getIntent().getStringExtra("passedString");
 
 
     private class MyLocationListener implements LocationListener{
@@ -127,9 +126,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-
-
         mMap = googleMap;
+
+        Bundle bundle = getIntent().getExtras();
+        String route = bundle.get("data").toString();
 
         DatabaseReference routeRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference pointRef = routeRef.child(route);
@@ -150,7 +150,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 mMap.addMarker(new MarkerOptions().position(startPoint).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).title("Start Point"));
                 mMap.addMarker(new MarkerOptions().position(endPoint).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).title("End Point"));
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startPoint,11F));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startPoint,13F));
 
             }
 

@@ -5,14 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
-public class routeSelection extends AppCompatActivity {
-
-    Spinner dropdown;
-
+public class routeSelection extends AppCompatActivity implements OnItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,34 +20,50 @@ public class routeSelection extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route_selection);
 
-        addItemsToSpinner();
+        //Spinner
+        final Spinner dropdown = (Spinner) findViewById(R.id.spinner);
+        Button showRoute = (Button)findViewById(R.id.showRouteButton);
 
-    }
+        //Spinner click listener
+        dropdown.setOnItemSelectedListener(this);
 
-
-    public void addItemsToSpinner() {
-
-        dropdown = findViewById(R.id.spinner);
-
-        Spinner dropdown = findViewById(R.id.spinner);
-
-        String[] routes = new String[]{"4km City Run", "10km St Columbs Park", "42km Derry Marathon"};
+        String[] routes = new String[]{"Select Route", "4km City Run", "8km St Columbs Park", "Quay Run"};
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, routes);
 
         dropdown.setAdapter(adapter);
 
-    }
-
-    public void showMapActivity(View view) {
-
         String route = dropdown.getSelectedItem().toString();
 
-        Intent intent = new Intent(this, MapsActivity.class);
+        //Button on click
+        showRoute.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (String.valueOf(dropdown.getSelectedItem()) != "Select Route") {
+                    Intent intent = new Intent(routeSelection.this, MapsActivity.class);
+                    intent.putExtra("data", String.valueOf(dropdown.getSelectedItem()));
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),"Select a route",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 
-        intent.putExtra("passedString", route);
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        // On selecting a spinner item
+        String item = parent.getItemAtPosition(position).toString();
 
-        startActivity(intent);
+        // Showing selected spinner item
+        Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
 
     }
+
+    public void onNothingSelected(AdapterView<?> arg0) {
+        // TODO Auto-generated method stub
+
+    }
+
 }
