@@ -19,6 +19,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -36,6 +39,7 @@ import androidx.annotation.NonNull;
 
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -119,10 +123,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void startRun (View view) {
         startButton.setVisibility(View.INVISIBLE);
         endButton.setVisibility(View.VISIBLE);
+
+        //Sets start time
+        String startTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+        Toast.makeText(getApplicationContext(),"Start time: " + startTime,Toast.LENGTH_SHORT).show();
     }
 
     public void endRun (View view) {
         endButton.setVisibility(View.INVISIBLE);
+
+        //Sets end time
+        String endTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+        Toast.makeText(getApplicationContext(),"End time: " + endTime,Toast.LENGTH_SHORT).show();
     }
 
 

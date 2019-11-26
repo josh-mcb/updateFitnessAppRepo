@@ -32,6 +32,7 @@
         android:background="#00FFFFFF"
         android:capitalize="none"
         android:clickable="true"
+        android:onClick="logout"
         android:text="@string/logout"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
