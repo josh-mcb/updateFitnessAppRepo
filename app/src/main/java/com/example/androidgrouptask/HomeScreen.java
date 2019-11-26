@@ -34,4 +34,10 @@ public class HomeScreen extends AppCompatActivity {
         finish();
 
     }
+
+    public void showProgress(View view) {
+
+        startActivity(new Intent(getApplicationContext(), progressActivity.class));
+
+    }
 }

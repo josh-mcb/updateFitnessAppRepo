@@ -47,6 +47,7 @@
         android:layout_width="325dp"
         android:layout_height="63dp"
         android:background="@drawable/loginbutton"
+        android:onClick="showProgress"
         android:text="@string/progress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
