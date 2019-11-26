@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import android.text.format.DateFormat;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -42,6 +44,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -55,8 +58,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Button startButton;
     Button endButton;
     Button scanButton;
-
-
+    String startTime;
+    String endTime;
+    String userID;
+    Date date1;
+    Date date2;
+    int minutes;
 
     private class MyLocationListener implements LocationListener{
 
@@ -106,6 +113,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // gets the firebase UserID from the login, passed through with intents
+        Bundle bundle = getIntent().getExtras();
+        userID = bundle.get("UserID").toString();
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -125,7 +138,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         endButton.setVisibility(View.VISIBLE);
 
         //Sets start time
-        String startTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+        startTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
         Toast.makeText(getApplicationContext(),"Start time: " + startTime,Toast.LENGTH_SHORT).show();
     }
 
@@ -133,8 +146,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         endButton.setVisibility(View.INVISIBLE);
 
         //Sets end time
-        String endTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+        endTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
         Toast.makeText(getApplicationContext(),"End time: " + endTime,Toast.LENGTH_SHORT).show();
+
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+            date1 = format.parse(startTime);
+            date2 = format.parse(endTime);
+        }
+        catch (java.text.ParseException e) {
+            e.printStackTrace();
+        }
+
+        long difference = date2.getTime() - date1.getTime();
+
+        minutes = (int) TimeUnit.MILLISECONDS.toMinutes(difference);
+
+        if(minutes<0) {
+            minutes += 1440;
+        }
+
+        Toast.makeText(getApplicationContext(),"Run Time: " + minutes,Toast.LENGTH_SHORT).show();
     }
 
 

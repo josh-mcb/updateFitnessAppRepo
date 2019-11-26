@@ -14,8 +14,13 @@ import android.widget.Toast;
 
 public class routeSelection extends AppCompatActivity implements OnItemSelectedListener {
 
+    String userID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Bundle bundle = getIntent().getExtras();
+        userID = bundle.get("userID").toString();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route_selection);
@@ -42,6 +47,7 @@ public class routeSelection extends AppCompatActivity implements OnItemSelectedL
                 if (String.valueOf(dropdown.getSelectedItem()) != "Select Route") {
                     Intent intent = new Intent(routeSelection.this, MapsActivity.class);
                     intent.putExtra("data", String.valueOf(dropdown.getSelectedItem()));
+                    intent.putExtra("UserID", userID);
                     startActivity(intent);
                 }
                 else{

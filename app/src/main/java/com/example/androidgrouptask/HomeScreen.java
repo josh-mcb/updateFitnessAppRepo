@@ -13,14 +13,21 @@ public class HomeScreen extends AppCompatActivity {
 
     String login;
     String password;
+    String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+        Bundle bundle = getIntent().getExtras();
+        userID = bundle.get("userID").toString();
     }
 
     public void showRouteScreen(View view) {
+
+        Intent intent = new Intent(getApplicationContext(), routeSelection.class);
+        intent.putExtra("userID", userID);
+        startActivity(intent);
 
 
         startActivity(new Intent(getApplicationContext(), routeSelection.class));
@@ -37,7 +44,7 @@ public class HomeScreen extends AppCompatActivity {
 
     public void showProgress(View view) {
 
-        startActivity(new Intent(getApplicationContext(), progressActivity.class));
-
+        Intent intent = new Intent(getApplicationContext(), progressActivity.class);
+        startActivity(intent);
     }
 }

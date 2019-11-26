@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     Button registerButton;
     Button loginButton;
     Button cancelRegistration;
+    public String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,7 +142,10 @@ public class MainActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
                     Toast.makeText(MainActivity.this, "Login Successful!", Toast.LENGTH_LONG).show();
                     finish();
-                    startActivity(new Intent(getApplicationContext(), HomeScreen.class));
+                    userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    Intent intent = new Intent(getApplicationContext(), HomeScreen.class);
+                    intent.putExtra("userID", userID);
+                    startActivity(intent);
                 }
                 else {
                     progressBar.setVisibility(View.GONE);
