@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import android.text.format.DateFormat;
@@ -65,7 +66,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Date date2;
     int minutes;
 
-    private class MyLocationListener implements LocationListener{
+    private class MyLocationListener implements LocationListener {
 
         @Override
         public void onLocationChanged(Location location) {
@@ -73,7 +74,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Toast.makeText(getBaseContext(),
                         "Current Location: Lat: " + location.getLatitude() +
                                 " Lng: " + location.getLongitude(), Toast.LENGTH_LONG).show();
-                LatLng p = new LatLng(location.getLatitude(),location.getLongitude());
+                LatLng p = new LatLng(location.getLatitude(), location.getLongitude());
                 Geocoder geoCoder = new Geocoder(getBaseContext(), Locale.getDefault());
                 List<Address> addresses = null;
                 String add = "";
@@ -133,16 +134,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         endButton.setVisibility(View.INVISIBLE);
     }
 
-    public void startRun (View view) {
+    public void startRun(View view) {
         startButton.setVisibility(View.INVISIBLE);
         endButton.setVisibility(View.VISIBLE);
 
         //Sets start time
         startTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
-        Toast.makeText(getApplicationContext(),"Start time: " + startTime,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Start time: " + startTime, Toast.LENGTH_SHORT).show();
     }
 
-    public void endRun (View view) {
+    public void endRun(View view) {
         endButton.setVisibility(View.INVISIBLE);
 
         //Sets end time
@@ -153,8 +154,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
             date1 = format.parse(startTime);
             date2 = format.parse(endTime);
-        }
-        catch (java.text.ParseException e) {
+        } catch (java.text.ParseException e) {
             e.printStackTrace();
         }
 
@@ -162,7 +162,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         minutes = (int) TimeUnit.MILLISECONDS.toMinutes(difference);
 
-        if(minutes<0) {
+        if (minutes < 0) {
             minutes += 1440;
         }
 
@@ -170,8 +170,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         totalTime += " mins";
 
-        Toast.makeText(getApplicationContext(),"Run Time: " + totalTime,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Run Time: " + totalTime, Toast.LENGTH_SHORT).show();
+
+
     }
+
 
 
 
