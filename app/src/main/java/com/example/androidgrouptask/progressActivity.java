@@ -6,31 +6,66 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
 public class progressActivity extends AppCompatActivity {
 
+    String userID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // getting currentUser for Query
+        Bundle bundle = getIntent().getExtras();
+        userID = bundle.get("userID").toString();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_progress);
 
-        ListView myListView = findViewById(R.id.listView);
+        final ListView myListView = findViewById(R.id.listView);
 
-        routeTimes john = new routeTimes("4km City Run","60 mins");
-        routeTimes steve = new routeTimes("4km City Run","55 mins");
+        // arraylist using routeTime class as an object
+        final ArrayList<routeTimes> runningTimesList = new ArrayList<>();
 
-        ArrayList<routeTimes> runningTimesList = new ArrayList<>();
+        // database reference
+        DatabaseReference progressRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference pointRef = progressRef.child("User").child(userID);
 
-        runningTimesList.add(john);
-        runningTimesList.add(steve);
+        // new instance of listAdapter class
+        final listAdapterforProgress adapter = new listAdapterforProgress(this, R.layout.adapter_view_layout, runningTimesList);
 
-
-        listAdapterforProgress adapter = new listAdapterforProgress(this, R.layout.adapter_view_layout, runningTimesList);
-
+        // sets adapter from listadapterforprogress class
         myListView.setAdapter(adapter);
 
+        ValueEventListener routeValueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
+                for ( DataSnapshot routeDataSnapshot : dataSnapshot.getChildren() ) {
 
+                    // new instance of the routeTimes class and assigning to snapshot to access getters
+                    routeTimes route = routeDataSnapshot.getValue(routeTimes.class);
+
+                    // creating new object and calling the getters into the constructor
+                    runningTimesList.add(new routeTimes(route.getRoute(), route.getTime()));
+
+                    // updates the adapter, and list
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+            // new listener
+        pointRef.addListenerForSingleValueEvent(routeValueEventListener);
     }
 }

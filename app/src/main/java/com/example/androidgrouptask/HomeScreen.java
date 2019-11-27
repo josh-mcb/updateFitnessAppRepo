@@ -45,6 +45,8 @@ public class HomeScreen extends AppCompatActivity {
     public void showProgress(View view) {
 
         Intent intent = new Intent(getApplicationContext(), progressActivity.class);
+        intent.putExtra("userID", userID);
         startActivity(intent);
+
     }
 }

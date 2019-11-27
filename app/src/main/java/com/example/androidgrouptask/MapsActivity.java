@@ -65,6 +65,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Date date1;
     Date date2;
     int minutes;
+    String route;
 
     private class MyLocationListener implements LocationListener {
 
@@ -172,6 +173,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         Toast.makeText(getApplicationContext(), "Run Time: " + totalTime, Toast.LENGTH_SHORT).show();
 
+        FirebaseDatabase database =  FirebaseDatabase.getInstance();
+        DatabaseReference mRef =  database.getReference().child("User").child(userID).push();
+        mRef.child("route").setValue(route);
+        mRef.child("time").setValue(totalTime);
 
     }
 
@@ -194,10 +199,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         Bundle bundle = getIntent().getExtras();
-        String route = bundle.get("data").toString();
+        route = bundle.get("data").toString();
 
-        DatabaseReference routeRef = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference routeRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference pointRef = routeRef.child(route);
+
 
 
         pointRef.addValueEventListener(new ValueEventListener() {

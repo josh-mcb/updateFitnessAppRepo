@@ -23,7 +23,7 @@ public class listAdapterforProgress extends ArrayAdapter<routeTimes> {
 
 
     private static class ViewHolder {
-        TextView routeName;
+        TextView route;
         TextView time;
     }
 
@@ -37,11 +37,11 @@ public class listAdapterforProgress extends ArrayAdapter<routeTimes> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         //get the persons information
-        String routeName = getItem(position).getRouteName();
+        String route = getItem(position).getRoute();
         String time = getItem(position).getTime();
         //Create the person object with the information
 
-        routeTimes person = new routeTimes(routeName,time);
+        routeTimes person = new routeTimes(route,time);
 
         //create the view result for showing the animation
         final View result;
@@ -54,7 +54,7 @@ public class listAdapterforProgress extends ArrayAdapter<routeTimes> {
             LayoutInflater inflater = LayoutInflater.from(mContext);
             convertView = inflater.inflate(mResource, parent, false);
             holder= new ViewHolder();
-            holder.routeName = convertView.findViewById(R.id.textView1);
+            holder.route = convertView.findViewById(R.id.textView1);
             holder.time = convertView.findViewById(R.id.textView2);
 
             result = convertView;
@@ -66,7 +66,7 @@ public class listAdapterforProgress extends ArrayAdapter<routeTimes> {
             result = convertView;
         }
 
-        holder.routeName.setText(person.getRouteName());
+        holder.route.setText(person.getRoute());
         holder.time.setText(person.getTime());
 
         return convertView;
