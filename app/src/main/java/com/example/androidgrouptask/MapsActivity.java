@@ -147,7 +147,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //Sets end time
         endTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
-        Toast.makeText(getApplicationContext(),"End time: " + endTime,Toast.LENGTH_SHORT).show();
+
 
         try {
             SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
@@ -166,7 +166,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             minutes += 1440;
         }
 
-        Toast.makeText(getApplicationContext(),"Run Time: " + minutes,Toast.LENGTH_SHORT).show();
+        String totalTime = Integer.toString(minutes);
+
+        totalTime += " mins";
+
+        Toast.makeText(getApplicationContext(),"Run Time: " + totalTime,Toast.LENGTH_SHORT).show();
     }
 
 
