@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AndroidGroupTask</string>
+    <string name="app_name">My Fitness Route</string>
     <string name="login_Button">"Login"</string>
     <string name="emailTextView">"Email</string>
     <string name="passwordTextView">"Password</string>

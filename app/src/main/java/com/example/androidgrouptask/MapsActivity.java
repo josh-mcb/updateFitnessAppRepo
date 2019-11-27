@@ -78,15 +78,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 LatLng p = new LatLng(location.getLatitude(), location.getLongitude());
                 Geocoder geoCoder = new Geocoder(getBaseContext(), Locale.getDefault());
                 List<Address> addresses = null;
-                String add = "";
+                String add = "Your location";
                 try {
                     addresses = geoCoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                     Address address = addresses.get(0);
 
-                    if (addresses.size() > 0) {
-                        for (int i = 0; i <= address.getMaxAddressLineIndex(); i++)
-                            add += address.getAddressLine(i) + "\n";
-                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -219,8 +215,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 LatLng startPoint = new LatLng(startLatitude,startLongitude);
                 LatLng endPoint = new LatLng(endLatitude,endLongitude);
 
-                mMap.addMarker(new MarkerOptions().position(startPoint).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).title("Start Point"));
-                mMap.addMarker(new MarkerOptions().position(endPoint).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).title("End Point"));
+                mMap.addMarker(new MarkerOptions().position(startPoint)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).title("Start Point"));
+                mMap.addMarker(new MarkerOptions().position(endPoint)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).title("End Point"));
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startPoint,13F));
 
             }
