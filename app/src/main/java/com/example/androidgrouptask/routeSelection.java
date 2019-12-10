@@ -58,9 +58,6 @@ public class routeSelection extends AppCompatActivity implements OnItemSelectedL
                     onPause();
                     startActivity(intent);
                 }
-                else{
-                    Toast.makeText(getApplicationContext(),"Select a route",Toast.LENGTH_SHORT).show();
-                }
             }
         });
     }
