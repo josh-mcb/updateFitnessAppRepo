@@ -12,6 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class routeSelection extends AppCompatActivity implements OnItemSelectedListener {
 
     String userID;
@@ -19,8 +22,12 @@ public class routeSelection extends AppCompatActivity implements OnItemSelectedL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        Bundle bundle = getIntent().getExtras();
-        userID = bundle.get("userID").toString();
+        //Bundle bundle = getIntent().getExtras();
+        //userID = bundle.get("userID").toString();
+
+        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
+
+        userID = currentFirebaseUser.getUid();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route_selection);
@@ -48,6 +55,7 @@ public class routeSelection extends AppCompatActivity implements OnItemSelectedL
                     Intent intent = new Intent(routeSelection.this, MapsActivity.class);
                     intent.putExtra("data", String.valueOf(dropdown.getSelectedItem()));
                     intent.putExtra("UserID", userID);
+                    onPause();
                     startActivity(intent);
                 }
                 else{
@@ -71,5 +79,4 @@ public class routeSelection extends AppCompatActivity implements OnItemSelectedL
         // TODO Auto-generated method stub
 
     }
-
 }
