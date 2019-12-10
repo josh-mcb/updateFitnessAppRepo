@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -13,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class progressActivity extends AppCompatActivity {
 
@@ -22,8 +25,12 @@ public class progressActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         // getting currentUser for Query
-        Bundle bundle = getIntent().getExtras();
-        userID = bundle.get("userID").toString();
+        //Bundle bundle = getIntent().getExtras();
+        //userID = bundle.get("userID").toString();
+
+        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        userID = currentFirebaseUser.getUid();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_progress);
@@ -54,6 +61,8 @@ public class progressActivity extends AppCompatActivity {
 
                     // creating new object and calling the getters into the constructor
                     runningTimesList.add(new routeTimes(route.getRoute(), route.getTime()));
+
+                    Collections.reverse(runningTimesList);
 
                     // updates the adapter, and list
                     adapter.notifyDataSetChanged();
